@@ -1,0 +1,131 @@
+{
+  "description": "Twenty queries whose correct answer is not in dispute. This is a tripwire, not a benchmark: it exists so that a bad change to fusion weights, tokenisation or the graph fails CI instead of shipping. Nothing here is a claim about retrieval quality in general.",
+  "fields": {
+    "query": "what a student types",
+    "expect_slug": "a problem that must appear in the top-k; chosen because it is the canonical statement of the technique described",
+    "expect_family_contains": "case-insensitive substring the chosen ladder's family name or tags should contain; null where no single family is obviously correct",
+    "phrasing": "literal = uses the standard jargon; oblique = describes the technique without naming it (the case this project exists for)"
+  },
+  "queries": [
+    {
+      "query": "I keep failing problems where you shrink a window from the left",
+      "expect_slug": "minimum-window-substring",
+      "expect_family_contains": "sliding window",
+      "phrasing": "oblique"
+    },
+    {
+      "query": "find the next greater element to the right of each item",
+      "expect_slug": "next-greater-element-i",
+      "expect_family_contains": "monotonic stack",
+      "phrasing": "oblique"
+    },
+    {
+      "query": "detect whether a linked list has a cycle in it",
+      "expect_slug": "linked-list-cycle",
+      "expect_family_contains": "linked list",
+      "phrasing": "literal"
+    },
+    {
+      "query": "two sum",
+      "expect_slug": "two-sum",
+      "expect_family_contains": null,
+      "phrasing": "literal"
+    },
+    {
+      "query": "search in a rotated sorted array using binary search",
+      "expect_slug": "search-in-rotated-sorted-array",
+      "expect_family_contains": "binary search",
+      "phrasing": "literal"
+    },
+    {
+      "query": "longest palindromic substring",
+      "expect_slug": "longest-palindromic-substring",
+      "expect_family_contains": null,
+      "phrasing": "literal"
+    },
+    {
+      "query": "how many ways to climb stairs taking one or two steps",
+      "expect_slug": "climbing-stairs",
+      "expect_family_contains": "dynamic programming",
+      "phrasing": "oblique"
+    },
+    {
+      "query": "merge overlapping intervals into non overlapping ones",
+      "expect_slug": "merge-intervals",
+      "expect_family_contains": null,
+      "phrasing": "literal"
+    },
+    {
+      "query": "check if brackets are balanced using a stack",
+      "expect_slug": "valid-parentheses",
+      "expect_family_contains": "stack",
+      "phrasing": "literal"
+    },
+    {
+      "query": "level by level traversal of a binary tree",
+      "expect_slug": "binary-tree-level-order-traversal",
+      "expect_family_contains": null,
+      "phrasing": "oblique"
+    },
+    {
+      "query": "find the kth largest element in an array",
+      "expect_slug": "kth-largest-element-in-an-array",
+      "expect_family_contains": null,
+      "phrasing": "literal"
+    },
+    {
+      "query": "number of islands in a grid of land and water",
+      "expect_slug": "number-of-islands",
+      "expect_family_contains": null,
+      "phrasing": "literal"
+    },
+    {
+      "query": "buy and sell stock once for maximum profit",
+      "expect_slug": "best-time-to-buy-and-sell-stock",
+      "expect_family_contains": null,
+      "phrasing": "literal"
+    },
+    {
+      "query": "reverse a linked list",
+      "expect_slug": "reverse-linked-list",
+      "expect_family_contains": "linked list",
+      "phrasing": "literal"
+    },
+    {
+      "query": "maximum sum of a contiguous subarray",
+      "expect_slug": "maximum-subarray",
+      "expect_family_contains": "dynamic programming",
+      "phrasing": "literal"
+    },
+    {
+      "query": "group words that are anagrams of each other",
+      "expect_slug": "group-anagrams",
+      "expect_family_contains": null,
+      "phrasing": "literal"
+    },
+    {
+      "query": "coin change fewest coins to make an amount",
+      "expect_slug": "coin-change",
+      "expect_family_contains": "dynamic programming",
+      "phrasing": "literal"
+    },
+    {
+      "query": "topological ordering of courses with prerequisites",
+      "expect_slug": "course-schedule",
+      "expect_family_contains": "topological sort",
+      "phrasing": "oblique"
+    },
+    {
+      "query": "prefix tree for autocomplete word lookup",
+      "expect_slug": "implement-trie-prefix-tree",
+      "expect_family_contains": "trie",
+      "phrasing": "oblique"
+    },
+    {
+      "query": "container that holds the most water between two lines",
+      "expect_slug": "container-with-most-water",
+      "expect_family_contains": "two pointers",
+      "phrasing": "literal"
+    }
+  ]
+}
