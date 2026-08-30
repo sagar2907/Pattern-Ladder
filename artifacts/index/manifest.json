@@ -1,0 +1,74 @@
+{
+  "dataset": {
+    "repo": "Alishohadaee/leetcode-problems-dataset",
+    "file": "raw_data/leetcode_problems.json",
+    "revision": "main"
+  },
+  "models": {
+    "dense": "sentence-transformers/all-MiniLM-L6-v2",
+    "reranker": "cross-encoder/ms-marco-MiniLM-L6-v2",
+    "dense_dim": 384
+  },
+  "corpus": {
+    "problems": 2830,
+    "title_repeat": 3,
+    "difficulty": {
+      "Easy": 752,
+      "Hard": 661,
+      "Medium": 1417
+    }
+  },
+  "graph": {
+    "knn_backfill": true,
+    "link_only": {
+      "nodes": 2830,
+      "edges": 1932,
+      "link_edges": 1932,
+      "knn_edges": 0,
+      "isolated": 1074,
+      "components": 1248,
+      "largest_component": 1221,
+      "mean_degree": 1.3653710247349824
+    },
+    "final": {
+      "nodes": 2830,
+      "edges": 4395,
+      "link_edges": 1932,
+      "knn_edges": 2463,
+      "isolated": 298,
+      "components": 341,
+      "largest_component": 2386,
+      "mean_degree": 3.106007067137809
+    }
+  },
+  "families": {
+    "count": 137,
+    "min_size": 5,
+    "covered_problems": 2443,
+    "coverage_fraction": 0.8633,
+    "largest": 42,
+    "tag_independence": {
+      "nmi": 0.6668,
+      "assigned": 2443
+    },
+    "name_coherence": {
+      "coherence": 0.8454,
+      "head_coherence": 0.7852
+    },
+    "size_histogram": {
+      "5-9": 16,
+      "10-19": 70,
+      "20-39": 50,
+      "40-79": 1,
+      "80+": 0
+    },
+    "described_by_model": 120,
+    "with_related_families": 111,
+    "duplicate_names": 10
+  },
+  "retrieval": {
+    "candidates_per_retriever": 100,
+    "fusion_pool": 50,
+    "rrf_k": 60
+  }
+}

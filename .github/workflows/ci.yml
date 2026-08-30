@@ -1,0 +1,70 @@
+name: CI
+
+# Runs on every push and pull request. The whole suite is offline: no API key,
+# no model download, no network. That is a deliberate constraint -- a test
+# suite that needs a secret cannot run on a fork's pull request, and one that
+# needs the network fails for reasons unrelated to the code.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  # A new push supersedes an in-flight run on the same ref.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # The floor is what pyproject declares; the ceiling is what the
+        # deployment target runs. Both are tested because the gap is where
+        # dependency resolution breaks.
+        python-version: ["3.11", "3.12"]
+
+    env:
+      # The repository pins 3.12 in .python-version so that a plain `uv sync`
+      # is reproducible. CI deliberately overrides that to test both supported
+      # versions, and the override has to apply to *every* uv invocation, not
+      # just the sync -- otherwise `uv run` reads .python-version, disagrees
+      # with the interpreter the environment was built with, and the step
+      # fails. UV_PYTHON takes precedence over the file and covers every
+      # command in the job.
+      UV_PYTHON: ${{ matrix.python-version }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Set up Python ${{ matrix.python-version }}
+        run: uv python install ${{ matrix.python-version }}
+
+      - name: Install dependencies from the lockfile
+        # --frozen fails if uv.lock is out of date with pyproject.toml, so a
+        # dependency change that was never locked cannot reach main.
+        run: uv sync --frozen --extra dev --python ${{ matrix.python-version }}
+
+      - name: Lint
+        run: uv run ruff check .
+
+      - name: Test
+        # No secrets are configured for this job by design. If a test ever
+        # starts needing one, it must be marked `network` and excluded.
+        run: uv run pytest -q
+
+      - name: Confirm the suite made no network calls
+        # A crude but effective tripwire: the HF cache directory must not exist
+        # after a run. If a test starts downloading a model, this catches it
+        # before it becomes a flaky CI dependency on a third party.
+        run: |
+          if [ -d "$HOME/.cache/huggingface" ]; then
+            echo "A test downloaded a model. The suite must stay offline."
+            exit 1
+          fi
