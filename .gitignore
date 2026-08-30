@@ -1,0 +1,45 @@
+# Secrets. This entry exists before any .env file does, which is the only
+# ordering that guarantees a key can never be staged by accident.
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Derived data. The raw upstream dump and the scratch files stay out; the
+# built index does not.
+#
+# That is a reversal, and the reason is deployment. The index is derived and was
+# excluded on principle, which meant a hosted instance rebuilt it on every cold
+# start -- roughly three minutes of sustained CPU to download the corpus and
+# encode 2,830 documents. The free host throttles for exactly that, and did.
+#
+# Committing 15MB of index removes the rebuild entirely, makes a cold start
+# instant, and has a third benefit that only became clear once the artefacts
+# were treated as a build output: the deployed app now serves the *same*
+# clustering the documentation describes, including the model-written family
+# descriptions, rather than whatever its own environment happened to produce.
+# Written as artifacts/* rather than artifacts/: git does not descend into an
+# excluded *directory*, so a negation beneath one can never match.
+artifacts/*
+!artifacts/index/
+.cache/
+.ruff_cache/
+.pytest_cache/
+*.log
+
+# Model weights pulled from the Hub at runtime
+.hf_home/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# The rendered PDFs are tracked deliberately, alongside the markdown they are
+# generated from. Both are small, and having them here means a reader does not
+# need a working toolchain to read the report.

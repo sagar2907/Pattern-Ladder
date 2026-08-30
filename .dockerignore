@@ -1,0 +1,25 @@
+# Everything not needed to build the image. Without this the build context is
+# roughly 1.6 GB -- the local virtualenv, the Hugging Face cache and the built
+# indexes -- all of which the image rebuilds for itself anyway.
+.venv/
+.hf_home/
+.git/
+
+# artifacts/ is excluded except for the built index, which is committed and is
+# copied into the image rather than rebuilt inside it. Unlike git, the Docker
+# builder walks the whole context and applies these patterns in order, so an
+# exception beneath an excluded directory does take effect here.
+artifacts/
+!artifacts/index/
+.pytest_cache/
+.ruff_cache/
+__pycache__/
+**/__pycache__/
+*.pyc
+
+# Never let a key reach the build context, even though nothing COPYs it.
+.env
+.env.*
+!.env.example
+
+docs/*.pdf

@@ -1,0 +1,12 @@
+# The built index is committed and parts of it are binary. Git's binary
+# detection is a heuristic over the first few kilobytes. It happens to be
+# correct for these files, but a corrupted embedding matrix would not announce
+# itself -- it would return subtly wrong neighbours forever -- so the guess is
+# replaced with a statement.
+#
+# The index JSON is data rather than source. Its bytes are compared against the
+# manifest, so a checkout must not rewrite its line endings either.
+*.npy binary
+*.npz binary
+*.pdf binary
+artifacts/index/*.json -text
